@@ -1,7 +1,8 @@
 import { Collection } from 'mongodb';
+
+import { GraphQLError } from 'graphql';
 import { User } from './types/types.js';
 import { Context } from './types/context.js';
-import { GraphQLError } from 'graphql';
 
 async function userHasAccessToGroup(roomId: string, Users: Collection<User>, context: Context) {
   const user = await Users.findOne({ userId: context.user.userId });

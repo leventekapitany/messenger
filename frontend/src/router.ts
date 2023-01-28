@@ -1,9 +1,6 @@
+import { createRouter as createVueRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+
 import { useUserStore } from '@/stores/user-store';
-import {
-  createRouter as createVueRouter,
-  createWebHistory,
-  RouteRecordRaw,
-} from 'vue-router';
 import Empty from './views/EmptyPage.vue';
 import Login from './views/LoginPage.vue';
 import Room from './views/RoomPage.vue';

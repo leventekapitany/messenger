@@ -45,9 +45,7 @@ export default (db: Db) => {
           .toArray();
 
         // Converts epoch milliseconds to ISO format
-        messages.forEach(message => {
-          message.timestampISO = DateTime.fromMillis(message.timestamp).toISO();
-        });
+        messages.map(m => ({ ...m, timestampISO: DateTime.fromMillis(m.timestamp).toISO() }));
 
         return messages.reverse();
       },
@@ -57,6 +55,7 @@ export default (db: Db) => {
 
         return Rooms.find({ roomId: { $in: user.rooms } }).toArray();
       },
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       users: async (_, args: QueryUsersArgs) => {
         // return Users.find()
       },

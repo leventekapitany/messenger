@@ -11,7 +11,7 @@
     "frontend"
   ],
   "scripts": {
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint . --ext .ts --cache",
     "prepare": "husky install"
   },
   "devDependencies": {

@@ -1,5 +1,6 @@
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
+// eslint-disable-next-line import/extensions
 import { createVuetify } from 'vuetify/lib/framework.mjs';
 
 // import '@mdi/font/css/materialdesignicons.css';
@@ -12,14 +13,17 @@ import createRouter from './router';
 
 import './style.css';
 import './theme.scss';
+
 const app = createApp(App);
 
 const vuetify = createVuetify();
 app.use(vuetify);
 const pinia = createPinia();
 app.use(pinia);
-export const router = createRouter();
+const router = createRouter();
 app.use(router);
 
 app.provide(...apolloClient);
 app.mount('#app');
+
+export default router;

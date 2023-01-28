@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -82,16 +83,13 @@ export type Mutation = {
   sendMessage?: Maybe<Message>;
 };
 
-
 export type MutationCreateRoomArgs = {
   name?: InputMaybe<Scalars['String']>;
 };
 
-
 export type MutationMigrateMessagesArgs = {
   messages?: InputMaybe<Array<InputMaybe<FbMessage>>>;
 };
-
 
 export type MutationSendMessageArgs = {
   message?: InputMaybe<MessageInput>;
@@ -116,18 +114,15 @@ export type Query = {
   users?: Maybe<Array<Maybe<User>>>;
 };
 
-
 export type QueryMessagesArgs = {
   interval?: InputMaybe<IntervalInput>;
   limit: Scalars['Int'];
   roomId: Scalars['ID'];
 };
 
-
 export type QueryRoomArgs = {
   roomId: Scalars['ID'];
 };
-
 
 export type QueryUsersArgs = {
   searchText: Scalars['String'];
@@ -187,15 +182,14 @@ export type VideoInput = {
   uri?: InputMaybe<Scalars['String']>;
 };
 
-
-
 export type ResolverTypeWrapper<T> = Promise<T> | T;
-
 
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
 };
-export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> = ResolverFn<TResult, TParent, TContext, TArgs> | ResolverWithResolve<TResult, TParent, TContext, TArgs>;
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
+  | ResolverFn<TResult, TParent, TContext, TArgs>
+  | ResolverWithResolve<TResult, TParent, TContext, TArgs>;
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
@@ -242,7 +236,11 @@ export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
   info: GraphQLResolveInfo
 ) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
 
-export type IsTypeOfResolverFn<T = {}, TContext = {}> = (obj: T, context: TContext, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
+export type IsTypeOfResolverFn<T = {}, TContext = {}> = (
+  obj: T,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => boolean | Promise<boolean>;
 
 export type NextResolverFn<T> = () => Promise<T>;
 
@@ -316,7 +314,10 @@ export type ResolversParentTypes = {
   VideoInput: VideoInput;
 };
 
-export type MessageResolvers<ContextType = any, ParentType extends ResolversParentTypes['Message'] = ResolversParentTypes['Message']> = {
+export type MessageResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Message'] = ResolversParentTypes['Message']
+> = {
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   migrated?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   photos?: Resolver<Maybe<Array<Maybe<ResolversTypes['Photo']>>>, ParentType, ContextType>;
@@ -328,45 +329,81 @@ export type MessageResolvers<ContextType = any, ParentType extends ResolversPare
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+export type MutationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
+> = {
   createRoom?: Resolver<Maybe<ResolversTypes['Room']>, ParentType, ContextType, Partial<MutationCreateRoomArgs>>;
-  migrateMessages?: Resolver<Maybe<Array<Maybe<ResolversTypes['Message']>>>, ParentType, ContextType, Partial<MutationMigrateMessagesArgs>>;
+  migrateMessages?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['Message']>>>,
+    ParentType,
+    ContextType,
+    Partial<MutationMigrateMessagesArgs>
+  >;
   sendMessage?: Resolver<Maybe<ResolversTypes['Message']>, ParentType, ContextType, Partial<MutationSendMessageArgs>>;
 };
 
-export type PhotoResolvers<ContextType = any, ParentType extends ResolversParentTypes['Photo'] = ResolversParentTypes['Photo']> = {
+export type PhotoResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Photo'] = ResolversParentTypes['Photo']
+> = {
   timestamp?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   uri?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  messages?: Resolver<Maybe<Array<Maybe<ResolversTypes['Message']>>>, ParentType, ContextType, RequireFields<QueryMessagesArgs, 'limit' | 'roomId'>>;
+export type QueryResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
+> = {
+  messages?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['Message']>>>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryMessagesArgs, 'limit' | 'roomId'>
+  >;
   room?: Resolver<Maybe<ResolversTypes['Room']>, ParentType, ContextType, RequireFields<QueryRoomArgs, 'roomId'>>;
   rooms?: Resolver<Maybe<Array<Maybe<ResolversTypes['Room']>>>, ParentType, ContextType>;
-  users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<QueryUsersArgs, 'searchText'>>;
+  users?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['User']>>>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryUsersArgs, 'searchText'>
+  >;
 };
 
-export type ReactionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Reaction'] = ResolversParentTypes['Reaction']> = {
+export type ReactionResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Reaction'] = ResolversParentTypes['Reaction']
+> = {
   actor?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   reaction?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type RoomResolvers<ContextType = any, ParentType extends ResolversParentTypes['Room'] = ResolversParentTypes['Room']> = {
+export type RoomResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Room'] = ResolversParentTypes['Room']
+> = {
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   roomId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['RoomUser']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type RoomUserResolvers<ContextType = any, ParentType extends ResolversParentTypes['RoomUser'] = ResolversParentTypes['RoomUser']> = {
+export type RoomUserResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['RoomUser'] = ResolversParentTypes['RoomUser']
+> = {
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   userId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+export type UserResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']
+> = {
   rooms?: Resolver<Maybe<Array<Maybe<ResolversTypes['ID']>>>, ParentType, ContextType>;
   userId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -382,4 +419,3 @@ export type Resolvers<ContextType = any> = {
   RoomUser?: RoomUserResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
-

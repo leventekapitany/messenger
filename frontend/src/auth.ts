@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import { useUserStore } from './stores/user-store';
 
 declare global {
@@ -6,13 +7,7 @@ declare global {
     google: {
       accounts: {
         id: {
-          initialize: ({
-            client_id,
-            callback,
-          }: {
-            client_id: string;
-            callback: CallableFunction;
-          }) => void;
+          initialize: ({ client_id, callback }: { client_id: string; callback: CallableFunction }) => void;
           prompt: (notification?: any) => void;
         };
       };
@@ -26,14 +21,13 @@ export default {
       const token = resp.credential;
       const userStore = useUserStore();
       userStore.setUserFromToken(token);
-    
+
       const { accessToken, tokenPayload } = userStore;
       console.log({ accessToken, tokenPayload });
     };
-    
+
     window.google.accounts.id.initialize({
-      client_id:
-        '412380997821-cchlhvbh65qir6a9ujiio46mac58nel2.apps.googleusercontent.com',
+      client_id: '412380997821-cchlhvbh65qir6a9ujiio46mac58nel2.apps.googleusercontent.com',
       callback: window.handleToken,
     });
   },
@@ -44,7 +38,5 @@ export default {
         window.google.accounts.id.prompt();
       }
     });
-  }
-}
-
-
+  },
+};

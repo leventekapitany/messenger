@@ -1,8 +1,11 @@
-import { Room } from '@/interfaces/graphql-types';
-import { TokenPayload } from 'google-auth-library';
 import jwtDecode from 'jwt-decode';
 import { defineStore } from 'pinia';
-import { router } from '../main';
+
+import type { TokenPayload } from 'google-auth-library';
+import type { Room } from '@/interfaces/graphql-types';
+
+// eslint-disable-next-line import/no-cycle
+import router from '../main';
 
 export type StoreRooms = { [roomId: string]: Room };
 
@@ -23,11 +26,20 @@ function isValidToken(payload: UserState['tokenPayload']) {
   return !!payload && payload.exp * 1000 > Date.now();
 }
 
+function getTheme() {
+  if (localStorage.getItem('theme') === 'light') {
+    return 'light';
+  }
+
+  if (localStorage.getItem('theme') === 'dark') {
+    return 'dark';
+  }
+  return 'light';
+}
+
 function getUserFromToken(): UserState {
   const accessToken = localStorage.getItem('token') || '';
-  const payload = accessToken
-    ? jwtDecode<TokenPayload>(accessToken)
-    : undefined;
+  const payload = accessToken ? jwtDecode<TokenPayload>(accessToken) : undefined;
 
   return {
     accessToken,
@@ -41,17 +53,6 @@ function getUserFromToken(): UserState {
     hideNavigation: false,
     theme: getTheme(),
   };
-}
-
-function getTheme() {
-  if (localStorage.getItem('theme') === 'light') {
-    return 'light';
-  }
-
-  if (localStorage.getItem('theme') === 'dark') {
-    return 'dark';
-  }
-  return 'light';
 }
 
 function getRooms(): StoreRooms {
@@ -103,7 +104,7 @@ export const useUserStore = defineStore('user', {
       localStorage.setItem('rooms', JSON.stringify(roomsObject));
     },
     addRoom(room: Room) {
-      this.setRooms([...Object.values(this.rooms), room])
+      this.setRooms([...Object.values(this.rooms), room]);
     },
     toggleTheme() {
       this.theme = this.theme === 'dark' ? 'light' : 'dark';
