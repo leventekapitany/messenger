@@ -59,7 +59,7 @@ export default (db: Db) => {
       },
       users: async (_, args: QueryUsersArgs) => {
         // return Users.find()
-      }
+      },
       // room: async (_, args: QueryRoomArgs) => Rooms.findOne(args),
     },
     Mutation: {
