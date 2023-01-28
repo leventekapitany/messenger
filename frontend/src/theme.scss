@@ -1,0 +1,35 @@
+@import '../node_modules/material-colors/dist/colors.var.css';
+
+.v-theme--dark {
+  --font-color: var(--md-light-text-primary);
+  --border: 1px solid var(--md-light-text-dividers);
+
+  button[selected] {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  button:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.v-theme--light {
+  --font-color: var(--md-dark-text-primary);
+  --border: 1px solid var(--md-dark-text-dividers);
+
+  button[selected] {
+    background-color: rgba(0, 0, 0, 0.15);
+  }
+
+  button:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+}
+
+.v-application {
+  color: var(--font-color);
+
+  button {
+    transition: background-color 0.05s;
+  }
+}

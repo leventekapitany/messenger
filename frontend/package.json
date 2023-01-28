@@ -1,0 +1,42 @@
+{
+  "name": "messenger-plus-client",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "vite --mode test",
+    "start": "echo 'Installing dependencies first...' && yarn install && vite",
+    "host": "vite --host",
+    "host:https": "vite --host --https",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "yarn eslint --ext .vue,.ts src"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.7.2",
+    "@vue/apollo-composable": "^4.0.0-beta.1",
+    "graphql": "^16.6.0",
+    "graphql-tag": "^2.12.6",
+    "jwt-decode": "^3.1.2",
+    "material-colors": "^1.2.6",
+    "pinia": "^2.0.28",
+    "prettier-plugin-organize-imports": "^3.2.1",
+    "react": "^18.2.0",
+    "vite-plugin-vuetify": "^1.0.1",
+    "vue": "3.2.45",
+    "vue-router": "4.1.6",
+    "vuetify": "^3.0.5"
+  },
+  "devDependencies": {
+    "@mdi/font": "^7.0.96",
+    "@typescript-eslint/eslint-plugin": "5.46.0",
+    "@typescript-eslint/parser": "5.46.0",
+    "@vitejs/plugin-basic-ssl": "^1.0.1",
+    "@vitejs/plugin-vue": "4.0.0",
+    "@vue/eslint-config-typescript": "11.0.2",
+    "google-auth-library": "^8.7.0",
+    "rollup-plugin-analyzer": "^4.0.0",
+    "sass": "1.56.2",
+    "vite": "4.0.1",
+    "vite-svg-loader": "^3.6.0"
+  }
+}
