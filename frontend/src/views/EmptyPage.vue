@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { router } from '@/main';
+import router from '@/main';
 import { useGetRoomsQuery } from '@/queries/room-queries';
 import { useUserStore } from '@/stores/user-store';
 import { watch } from 'vue';
