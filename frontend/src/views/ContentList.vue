@@ -11,12 +11,15 @@
         v-for="[roomId, room] in Object.entries(userStore.rooms || [])"
         :key="roomId"
         :to="{ name: 'Room', params: { roomId } }"
+        @click="
+          () => {
+            state.selectedRoomId = roomId;
+          }
+        "
       >
-        <button class="content">
+        <button class="content" :selected="roomId === state.selectedRoomId ? true : null">
           <div class="header">
-            <img
-              src="https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg"
-            />
+            <img src="https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg" />
           </div>
           <div class="body">
             <span>{{ room.name }}</span>
@@ -26,17 +29,10 @@
     </div>
     <div v-if="state.adding" class="room-creator">
       <div class="header">
-        <img
-          src="https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg"
-        />
+        <img src="https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg" />
       </div>
       <div class="body">
-        <input
-          ref="inputField"
-          v-model="input"
-          placeholder="Room name"
-          @keyup.enter="onCreateRoom"
-        />
+        <input ref="inputField" v-model="input" placeholder="Room name" @keyup.enter="onCreateRoom" />
       </div>
     </div>
   </div>
@@ -49,7 +45,7 @@ import { useUserStore } from '@/stores/user-store';
 import { onUpdated, reactive, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 
-const state = reactive({ adding: false });
+const state = reactive({ adding: false, selectedRoomId: '' });
 const input = ref('');
 const inputField = ref<HTMLInputElement | null>(null);
 

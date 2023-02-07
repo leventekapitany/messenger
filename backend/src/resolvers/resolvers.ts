@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { Db } from 'mongodb';
+import type { Db } from 'mongodb';
 import { v4 as uuid } from 'uuid';
 
 import formatters from '../formatters.js';
